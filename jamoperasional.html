@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jam Operasional Bisnis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 1px;
+            background-color: #600;
+            color: #333;
+            text-align: center;
+        }
+        .business-hours {
+            max-width: 100%;
+            margin: auto;
+            padding: 2px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .business-hours h2 {
+            text-align: center;
+            color: #444;
+        }
+        .day {
+            display: flex;
+            justify-content: space-between;
+            padding: 1px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .day:last-child {
+            border-bottom: 0;
+        }
+        .highlight {
+            background-color: #ffeb3b;
+        }
+    </style>
+</head>
+<body>
+    <div class="business-hours">
+        <span><b>Jam Operasional</b></span>
+        <div class="day" id="monday"><span>Senin</span> <span>08:00 - 17:00</span></div>
+        <div class="day" id="tuesday"><span>Selasa</span> <span>08:00 - 17:00</span></div>
+        <div class="day" id="wednesday"><span>Rabu</span> <span>08:00 - 17:00</span></div>
+        <div class="day" id="thursday"><span>Kamis</span> <span>08:00 - 17:00</span></div>
+        <div class="day" id="friday"><span>Jumat</span> <span>08:00 - 17:00</span></div>
+        <div class="day" id="saturday"><span>Sabtu</span> <span>Tutup</span></div>
+        <div class="day" id="sunday"><span>Minggu</span> <span>Tutup</span></div>
+    </div>
+    <script>
+        const today = new Date().getDay();
+        const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+        document.getElementById(days[today]).classList.add("highlight");
+    </script>
+</body>
+</html>
