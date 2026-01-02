@@ -18,7 +18,7 @@ h2{margin:0 0 4px;font-size:1.1em}
 <body>
 <div class="card">
   <h2>Jam Kerja Kantor Hari Ini</h2>
-  <div id="hariIni"><span id="namaHari">-</span> 08.00-17.00 WIB </div>
+  <div id="hariIni"><span id="namaHari">-</span> <span id="jamRange">08.00-17.00 WIB</span></div>
   <div id="waktu">--/--/-- --:--:-- WIB</div>
   <div id="status" class="tutup">Kantor Tutup</div>
 </div>
@@ -28,14 +28,31 @@ const hari=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
 function pad(n){return n.toString().padStart(2,0)}
 function tick(){
   const d=new Date(),h=d.getHours(),m=d.getMinutes(),s=d.getSeconds();
-  const open=d.getDay()%6===0?0:h*60+m>=480&&h*60+m<1020;
+  const day=d.getDay();                 // 0=Minggu, 6=Sabtu
+  const isWeekday=day>=1 && day<=5;     // Senin-Jumat
+  const minutes=h*60+m;                 // menit dari 00:00
+  const inHours=isWeekday && minutes>=480 && minutes<1020; // 08:00-17:00
+
+  // tampilkan tanggal & jam
   document.getElementById('waktu').textContent=
     pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+String(d.getFullYear()).slice(-2)+' '+
     pad(h)+':'+pad(m)+':'+pad(s)+' WIB';
-  document.getElementById('namaHari').textContent=hari[d.getDay()];
+
+  // nama hari
+  document.getElementById('namaHari').textContent=hari[day];
+
+  // teks jam kerja (kosongkan hari libur)
+  document.getElementById('jamRange').textContent=isWeekday?'08.00-17.00 WIB':'Libur';
+
+  // status & warna
   const st=document.getElementById('status');
-  st.textContent=open?'Kantor Buka':'Kantor Tutup';
-  st.className=open?'buka':'tutup';
+  if(inHours){
+    st.textContent='Kantor Buka';
+    st.className='buka';
+  }else{
+    st.textContent='Kantor Tutup';
+    st.className='tutup';
+  }
 }
 tick();
 setInterval(tick,1000);
