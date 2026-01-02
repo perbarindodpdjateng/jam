@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Jam Operasional Kantor</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+html,body{margin:0;height:100%;font:12px/1.2 system-ui,-apple-system,sans-serif;background:#f5f5f5}
+.card{box-sizing:border-box;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4px}
+h2{margin:0 0 4px;font-size:1.1em}
+#waktu{font-size:1em;margin-bottom:6px}
+#hariIni{display:inline-block;padding:4px 8px;border-left:3px solid #2196F3;background:#fff;font-weight:700}
+#status{display:inline-block;margin-top:6px;padding:3px 6px;border-radius:2px;color:#fff;font-size:.95em}
+.buka{background:#2e7d32}
+.tutup{background:#c62828}
+</style>
+</head>
+<body>
+<div class="card">
+  <h2>Jam Kerja Kantor Hari Ini</h2>
+  <div id="waktu">--/--/-- --:--:-- WIB</div>
+  <div id="hariIni"><span id="namaHari">-</span> 08.00-17.00 WIB </div>
+  <div id="status" class="tutup">Kantor Tutup</div>
+</div>
+
+<script>
+const hari=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+function pad(n){return n.toString().padStart(2,0)}
+function tick(){
+  const d=new Date(),h=d.getHours(),m=d.getMinutes(),s=d.getSeconds();
+  const open=d.getDay()%6===0?0:h*60+m>=480&&h*60+m<1020;
+  document.getElementById('waktu').textContent=
+    pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+String(d.getFullYear()).slice(-2)+' '+
+    pad(h)+':'+pad(m)+':'+pad(s)+' WIB';
+  document.getElementById('namaHari').textContent=hari[d.getDay()];
+  const st=document.getElementById('status');
+  st.textContent=open?'Kantor Buka':'Kantor Tutup';
+  st.className=open?'buka':'tutup';
+}
+tick();
+setInterval(tick,1000);
+</script>
+</body>
+</html>
