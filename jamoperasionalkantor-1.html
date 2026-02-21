@@ -26,11 +26,11 @@ li.today{background:#ff0;border-color:#4CAF50;font-weight:700}
 </div>
 
 <ul id="jadwal">
-  <li><span>Senin</span><span>08.00-17.00</span></li>
-  <li><span>Selasa</span><span>08.00-17.00</span></li>
-  <li><span>Rabu</span><span>08.00-17.00</span></li>
-  <li><span>Kamis</span><span>08.00-17.00</span></li>
-  <li><span>Jumat</span><span>08.00-17.00</span></li>
+  <li><span>Senin</span><span>08.00-16.00</span></li>
+  <li><span>Selasa</span><span>08.00-16.00</span></li>
+  <li><span>Rabu</span><span>08.00-16.00</span></li>
+  <li><span>Kamis</span><span>08.00-16.00</span></li>
+  <li><span>Jumat</span><span>08.00-16.00</span></li>
   <li><span>Sabtu</span><span>Libur</span></li>
   <li><span>Minggu</span><span>Libur</span></li>
 </ul>
@@ -47,7 +47,7 @@ function upd(){
   const z=Intl.DateTimeFormat().resolvedOptions().timeZone||'';
   $('zona').textContent=z.includes('Makassar')||z.includes('Ujung')?'WITA':z.includes('Jayapura')?'WIT':'WIB';
   let st='Tutup',cl='tutup';
-  if(dy>0&&dy<6){const t=h*60+m;if(t>=480&&t<=1020){st='Buka';cl='buka';}}
+  if(dy>0&&dy<6){const t=h*60+m;if(t>=480&&t<=960){st='Buka';cl='buka';}}
   const e=$('status');e.textContent='Kantor: '+st;e.className=cl;
 }
 const idx=[6,0,1,2,3,4,5];
