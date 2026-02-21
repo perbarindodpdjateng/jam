@@ -1,1 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Jam Operasional Kantor</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+html,body{margin:0;height:100%;font:12px/0.8 system-ui,-apple-system,sans-serif;background:#ACE1AF}
+.card{box-sizing:border-box;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4px}
+h2{margin:0 0 4px;font-size:0.8em}
+#waktu{font-size:0.8em;margin-bottom:5px}
+#hariIni{display:inline-block;padding:1px 1px;border-left:0px solid #2196F3;background:yellow;font-weight:200;font:10px system-ui,-apple-system,impact}
+#status{display:inline-block;margin-top:6px;padding:3px 6px;border-radius:2px;color:#fff;font-size:.75em}
+.buka{background:#2e7d32}
+.tutup{background:#c62828}
+</style>
+</head>
+<body>
+<div class="card">
+  <h2>Jam Kerja Kantor Hari Ini</h2>
+  <div id="hariIni"><strong><span id="namaHari">-</span> <span id="jamRange">08.00-17.00 WIB</span></strong></div>
+  <div id="waktu">--/--/-- --:--:-- WIB</div>
+  <div id="status" class="tutup">Kantor Tutup</div>
+</div>
 
+<script>
+const hari=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+function pad(n){return n.toString().padStart(2,0)}
+function tick(){
+  const d=new Date(),h=d.getHours(),m=d.getMinutes(),s=d.getSeconds();
+  const day=d.getDay();                 // 0=Minggu, 6=Sabtu
+  const isWeekday=day>=1 && day<=5;     // Senin-Jumat
+  const minutes=h*60+m;                 // menit dari 00:00
+  const inHours=isWeekday && minutes>=480 && minutes<1020; // 08:00-17:00
+
+  // tampilkan tanggal & jam
+  document.getElementById('waktu').textContent=
+    pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+String(d.getFullYear()).slice(-2)+' '+
+    pad(h)+':'+pad(m)+':'+pad(s)+' WIB';
+
+  // nama hari
+  document.getElementById('namaHari').textContent=hari[day];
+
+  // teks jam kerja (kosongkan hari libur)
+  document.getElementById('jamRange').textContent=isWeekday?'08.00-17.00 WIB':'Libur';
+
+  // status & warna
+  const st=document.getElementById('status');
+  if(inHours){
+    st.textContent='Kantor Buka';
+    st.className='buka';
+  }else{
+    st.textContent='Kantor Tutup';
+    st.className='tutup';
+  }
+}
+tick();
+setInterval(tick,1000);
+</script>
+</body>
+</html>
