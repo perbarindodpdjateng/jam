@@ -18,7 +18,7 @@ h2{margin:0 0 4px;font-size:0.8em}
 <body>
 <div class="card">
   <h2>Jam Kerja Kantor Hari Ini</h2>
-  <div id="hariIni"><strong><span id="namaHari">-</span> <span id="jamRange">08.00-17.00 WIB</span></strong></div>
+  <div id="hariIni"><strong><span id="namaHari">-</span> <span id="jamRange">08.00-16.00 WIB</span></strong></div>
   <div id="waktu">--/--/-- --:--:-- WIB</div>
   <div id="status" class="tutup">Kantor Tutup</div>
 </div>
@@ -31,7 +31,7 @@ function tick(){
   const day=d.getDay();                 // 0=Minggu, 6=Sabtu
   const isWeekday=day>=1 && day<=5;     // Senin-Jumat
   const minutes=h*60+m;                 // menit dari 00:00
-  const inHours=isWeekday && minutes>=480 && minutes<1020; // 08:00-17:00
+  const inHours=isWeekday && minutes>=480 && minutes<960; // 08:00-16:00
 
   // tampilkan tanggal & jam
   document.getElementById('waktu').textContent=
@@ -42,7 +42,7 @@ function tick(){
   document.getElementById('namaHari').textContent=hari[day];
 
   // teks jam kerja (kosongkan hari libur)
-  document.getElementById('jamRange').textContent=isWeekday?'08.00-17.00 WIB':'Libur';
+  document.getElementById('jamRange').textContent=isWeekday?'08.00-16.00 WIB':'Libur';
 
   // status & warna
   const st=document.getElementById('status');
