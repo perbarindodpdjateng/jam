@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Jam Operasional Kantor</title>
+<style>
+body{margin:0 auto;max-width:300px;padding:4px;font:11px/1.1 'Segoe UI',sans-serif;background:#fff;text-align:center}
+h2{margin:0 0 2px;font-size:1em}
+#baris-waktu{display:flex;justify-content:center;gap:4px;font-size:1em}
+#zona{font-size:.7em;color:#777}
+ul{list-style:none;padding:0;margin:4px 0 0}
+li{display:flex;justify-content:space-between;padding:2px 4px;margin:1px 0;border-left:3px solid #2196F3;background:#fff}
+li.today{background:#ff0;border-color:#4CAF50;font-weight:700}
+#status{margin-top:2px;padding:2px;border-radius:2px;color:#fff;font-size:.95em}
+.buka{background:#4CAF50}
+.tutup{background:#f44336}
+</style>
+</head>
+<body>
+
+<h2>JAM KERJA KANTOR</h2>
+<div id="baris-waktu">
+  <span id="tgl">--/--/--</span>
+  <span id="jam">00:00:00</span>
+  <span id="zona">WIB</span>
+</div>
+
+<ul id="jadwal">
+  <li><span>Senin</span><span>08.00-17.00</span></li>
+  <li><span>Selasa</span><span>08.00-17.00</span></li>
+  <li><span>Rabu</span><span>08.00-17.00</span></li>
+  <li><span>Kamis</span><span>08.00-17.00</span></li>
+  <li><span>Jumat</span><span>08.00-17.00</span></li>
+  <li><span>Sabtu</span><span>Libur</span></li>
+  <li><span>Minggu</span><span>Libur</span></li>
+</ul>
+
+<div id="status" class="tutup">Kantor: Tutup</div>
+
+<script>
+function $(i){return document.getElementById(i)}
+function pad(n){return n.toString().padStart(2,0)}
+function upd(){
+  const d=new Date(),h=d.getHours(),m=d.getMinutes(),s=d.getSeconds(),dy=d.getDay();
+  $('tgl').textContent=pad(d.getDate())+'/'+pad(d.getMonth()+1)+String(d.getFullYear()).slice(-2);
+  $('jam').textContent=pad(h)+':'+pad(m)+':'+pad(s);
+  const z=Intl.DateTimeFormat().resolvedOptions().timeZone||'';
+  $('zona').textContent=z.includes('Makassar')||z.includes('Ujung')?'WITA':z.includes('Jayapura')?'WIT':'WIB';
+  let st='Tutup',cl='tutup';
+  if(dy>0&&dy<6){const t=h*60+m;if(t>=480&&t<=1020){st='Buka';cl='buka';}}
+  const e=$('status');e.textContent='Kantor: '+st;e.className=cl;
+}
+const idx=[6,0,1,2,3,4,5];
+document.getElementById('jadwal').children[idx[new Date().getDay()]].classList.add('today');
+upd();setInterval(upd,1e3);
+</script>
+</body>
+</html>
