@@ -47,7 +47,7 @@ function upd(){
   const z=Intl.DateTimeFormat().resolvedOptions().timeZone||'';
   $('zona').textContent=z.includes('Makassar')||z.includes('Ujung')?'WITA':z.includes('Jayapura')?'WIT':'WIB';
   let st='Tutup',cl='tutup';
-  if(dy>0&&dy<6){const t=h*60+m;if(t>=480&&t<=960){st='Buka';cl='buka';}}
+  if(dy>0&&dy<6){const t=h*60+m;if(t>=480&&t<=1020){st='Buka';cl='buka';}}
   const e=$('status');e.textContent='Kantor: '+st;e.className=cl;
 }
 const idx=[6,0,1,2,3,4,5];
